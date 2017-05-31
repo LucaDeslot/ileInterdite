@@ -12,7 +12,7 @@ public class Grille {
       tuiles = new ArrayList<Tuile>(tuilesType.getNOM_TUILES()[]);
       
        setTuiles();
-       
+       bonjour;
     }
     
     
