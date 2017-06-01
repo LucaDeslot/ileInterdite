@@ -1,18 +1,32 @@
 package ileinterdite;
-import ileinterdite.Aventurier_Abs_;
+import ileinterdite.Aventurier;
 import ileinterdite.Tuile;
 
 public class Joueur {
-	private Aventurier_Abs_ role;
-        
+    private Aventurier aventurier;
+    private String nom;
 
-	public Tuile GetPosition() {
-		return this.role.getPosition();
-	}
+    public Joueur(String nom){
+        this.nom=nom;
+    }
 
-	public Aventurier_Abs_ getRole() {
-		return this.role;
-	}
+
+    public Aventurier getAventurier() {
+            return this.aventurier;
+    }
+
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    Tuile getPosition() {
+         //To change body of generated methods, choose Tools | Templates.
+    }
         
         
 }

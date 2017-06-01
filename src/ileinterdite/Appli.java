@@ -18,13 +18,21 @@ public class Appli {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-         IleInterdite controleur = new IleInterdite() ; 
+        IleInterdite controleur = new IleInterdite() ; 
         VueAventurier vueAventurier = new VueAventurier ("Manon", "Explorateur",Pion.ROUGE.getCouleur(),controleur );
         Grille grille = new Grille();
         Tuile tuile = new Tuile(26);
+        String role;
+        Controleur test = new Controleur();
+        Joueur joueur = new Joueur("jEAN-mICHEL");
+        Aventurier aventurier = new Pilote();
+        
+        
+        //System.out.println(aventurier.getRole());
         //tests
-        System.out.println(grille.getTuile(26).getNom()+" "+grille.getTuile(26).getNumero());
-        grille.getTuilesAdjacentesDiagonales(tuile);
+        //System.out.println(grille.getTuile(26).getNom()+" "+grille.getTuile(26).getNumero());
+        //grille.getTuilesAdjacentesDiagonales(tuile);
+        test.AssecherCase(joueur);
     }
     
 }

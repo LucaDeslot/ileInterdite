@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import ileinterdite.Etat;
 
 public class Tuile {
-    private ArrayList<Aventurier_Abs_> pions;
-    private ArrayList<Aventurier_Abs_> pionsPrésents = new ArrayList<Aventurier_Abs_>();
+    private ArrayList<Aventurier> pions;
+    private ArrayList<Aventurier> pionsPrésents = new ArrayList<Aventurier>();
     public Carte_Inondation carte;
     private Etat etat;
     private Tresor tresorAssocié;
@@ -43,10 +43,10 @@ public class Tuile {
         return nom;
     }
 
-    public void MiseAJourDeplacement(Tuile aDepart, Tuile aArrivee, Aventurier_Abs_ aJoueur) {
+    public void MiseAJourDeplacement(Tuile aDepart, Tuile aArrivee, Aventurier aJoueur) {
         //à compléter
     }
-
+/*
     public ArrayList<Aventurier_Abs_> getPionsPrésents(){
         for (Aventurier_Abs_ aventurier : pions){ //pour chaque aventurier
             if (aventurier.getPosition().getNumero()==this.getNumero()){ //on regarde le numério de la tuile sur laquelle il est, et on le compare a la tuile actuelle
@@ -56,7 +56,7 @@ public class Tuile {
         }
         return pionsPrésents;
     }
-        
+*/        
     public String[] getNOM_TUILES(){
         return NOM_TUILES;
     }    

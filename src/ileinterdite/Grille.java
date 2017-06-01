@@ -274,6 +274,7 @@ import java.util.ArrayList;
         return tuiles_adjacentes_diagonales;
     }
     
+
    
     
    

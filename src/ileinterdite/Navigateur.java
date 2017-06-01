@@ -1,7 +1,8 @@
 
-import ileinterdite.Aventurier_Abs_;
+import ileinterdite.Aventurier;
+import ileinterdite.Tuile;
 
-public class Navigateur extends Aventurier_Abs_ {
+public class Navigateur extends Aventurier {
         private String role = "navigateur";
 
     
@@ -14,7 +15,6 @@ public class Navigateur extends Aventurier_Abs_ {
     public void setRole(String role) {
         this.role = role;
     }
-    
     
     
 }

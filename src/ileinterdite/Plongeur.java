@@ -1,9 +1,9 @@
 package ileinterdite;
 
 
-import ileinterdite.Aventurier_Abs_;
+import ileinterdite.Aventurier;
 
-public class Plongeur extends Aventurier_Abs_ {
+public class Plongeur extends Aventurier {
     private String role = "plongeur";
 
     
