@@ -20,7 +20,11 @@ public class Appli {
         // TODO code application logic here
          IleInterdite controleur = new IleInterdite() ; 
         VueAventurier vueAventurier = new VueAventurier ("Manon", "Explorateur",Pion.ROUGE.getCouleur(),controleur );
-        
+        Grille grille = new Grille();
+        Tuile tuile = new Tuile(26);
+        //tests
+        System.out.println(grille.getTuile(26).getNom()+" "+grille.getTuile(26).getNumero());
+        grille.getTuilesAdjacentesDiagonales(tuile);
     }
     
 }
