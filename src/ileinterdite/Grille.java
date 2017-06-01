@@ -35,7 +35,7 @@ import java.util.ArrayList;
         int a = tuile_type.getNOM_TUILES().length-1;
         int num = 0;
              
-        for(int i = 0; i < getInstance_Tuile().length; i++){ // boucle qui parcoute les nom des tuiles
+        for(int i = 0; i < getTuiles().length; i++){ // boucle qui parcoute les nom des tuiles
             alea = (int) (Math.random() * (a - 0)); // alea un nombre netre 0 et 35
             instance_tuile[i] = new Tuile(alea);
             instance_tuile[i].setNumero(num);// set le numéro
@@ -49,18 +49,20 @@ import java.util.ArrayList;
                a = a-1;
             }
             num= num+1;
-            
-            // PARTIE TEST
-            System.out.println(instance_tuile[i].getNumero()+" "+instance_tuile[i].getNom()+" \t"+instance_tuile[i].getEtat()+" ");
+ 
         }
+        // PARTIE TEST
      }
-
-    public Tuile[] getInstance_Tuile() {
+    public void setEtat(int num_tuile, Etat etat){
+        this.getTuile(num_tuile).SetEtat(etat);
+    }
+    
+    public Tuile[] getTuiles() {
         return instance_tuile;
     }
     
     public Tuile getTuile(int numero_tuile){
-        Tuile resultat = new Tuile();
+        Tuile resultat = null;
         for (Tuile tuile : instance_tuile){
             if (numero_tuile==tuile.getNumero()){
                 resultat = tuile;
@@ -73,12 +75,13 @@ import java.util.ArrayList;
     public ArrayList<Tuile> getTuilesAdjacentes(Tuile tuile){
         ArrayList<Tuile> tuiles_adjacentes = new ArrayList<>();
         int num_tuile_courante;
-        Tuile tuile_haut = new Tuile();
-        Tuile tuile_bas = new Tuile();
-        Tuile tuile_gauche = new Tuile();
-        Tuile tuile_droite = new Tuile();
-        
         num_tuile_courante = tuile.getNumero();
+        Tuile tuile_haut;
+        Tuile tuile_bas ;
+        Tuile tuile_gauche = getTuile(num_tuile_courante-1);
+        Tuile tuile_droite = getTuile(num_tuile_courante+1);
+        
+        
         
         //----------------------------------------------------------------------------------------------------------------------//
         
@@ -142,7 +145,7 @@ import java.util.ArrayList;
         System.out.println("\n\n");
         for (Tuile tuiles : tuiles_adjacentes){
             
-            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());
+            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat()+"tuiles_adjacentes");
         }
         return tuiles_adjacentes;
     }
@@ -150,16 +153,17 @@ import java.util.ArrayList;
     public ArrayList<Tuile> getTuilesAdjacentesDiagonales(Tuile tuile){
         ArrayList<Tuile> tuiles_adjacentes_diagonales = new ArrayList<>();
         int   num_tuile_courante;
-        Tuile tuile_haut = new Tuile();
-        Tuile tuile_bas = new Tuile();
-        Tuile tuile_gauche = new Tuile();
-        Tuile tuile_droite = new Tuile();
-        Tuile tuile_haut_gauche = new Tuile();
-        Tuile tuile_haut_droite = new Tuile();
-        Tuile tuile_bas_gauche = new Tuile();
-        Tuile tuile_bas_droite = new Tuile();
-        
         num_tuile_courante = tuile.getNumero();
+        Tuile tuile_haut ;
+        Tuile tuile_bas;
+        Tuile tuile_gauche = getTuile(num_tuile_courante-1);
+        Tuile tuile_droite = getTuile(num_tuile_courante+1);
+        Tuile tuile_haut_gauche;
+        Tuile tuile_haut_droite;
+        Tuile tuile_bas_gauche;
+        Tuile tuile_bas_droite;
+        
+        
         
         //--------------------------------------------------BAS----------------------------------------------------------------//
         
@@ -269,7 +273,7 @@ import java.util.ArrayList;
         System.out.println("\n\n");
         for (Tuile tuiles : tuiles_adjacentes_diagonales){
             
-            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());
+            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat()+"tuiles_adjacentes_diagonales");
         }
         return tuiles_adjacentes_diagonales;
     }

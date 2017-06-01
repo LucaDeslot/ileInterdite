@@ -36,9 +36,8 @@ public class Controleur {
         //position_joueur_courant = joueur.getPosition();
 
      //   grille.getCasesAdjacentes(position_joueur_courant);
-
-
     }
+
 
     public void DeplacementExplorateur(Joueur joueur) {
 
@@ -47,27 +46,29 @@ public class Controleur {
     public void AssecherCase(Joueur joueur) {
         Tuile tuile;
         String role;
+        Aventurier aventurier;
         Etat etat_tuile;
-        Grille grille = new Grille();
         ArrayList<Tuile> tuiles_adjacentes = new ArrayList<>();
         
-        tuile = joueur.getPosition();
+        aventurier = joueur.getAventurier();
+        tuile = aventurier.getPosition();
+        System.out.println(tuile.getNumero());
         role = joueur.getAventurier().getRole();
         
         etat_tuile= tuile.getEtat();
+        System.out.println(etat_tuile);
         
         if ("explorateur".equals(role)){
-            tuile.getNumero();
-            grille.getTuilesAdjacentesDiagonales(tuile);
-            for (Tuile tuile_courante : grille.getTuilesAdjacentesDiagonales(tuile)){
+            System.out.println("1ere");
+            for (Tuile tuile_courante : getGrille().getTuilesAdjacentesDiagonales(tuile)){
                 if (tuile_courante.getEtat()== Etat.INONDEE){
                     tuiles_adjacentes.add(tuile_courante);
                 }
             }
         }else {
-            tuile.getNumero();
-            grille.getTuilesAdjacentes(tuile);
-            for (Tuile tuile_courante : grille.getTuilesAdjacentes(tuile)){
+            System.out.println("2eme");
+            for (Tuile tuile_courante : getGrille().getTuilesAdjacentes(tuile)){
+                System.out.println(tuile_courante.getNom()+" "+tuile_courante.getNumero()+" "+tuile_courante.getEtat()+"beuleubeuleu");
                 if(tuile_courante.getEtat()==Etat.INONDEE){
                     tuiles_adjacentes.add(tuile_courante);
                 }
@@ -75,7 +76,14 @@ public class Controleur {
         }
         
         for (Tuile tuiles : tuiles_adjacentes){
-            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());
+            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat()+"beuleu");
         }
     }    
+
+    /**
+     * @return the grille
+     */
+    public Grille getGrille() {
+        return grille;
+    }
 }

@@ -6,8 +6,9 @@ public class Joueur {
     private Aventurier aventurier;
     private String nom;
 
-    public Joueur(String nom){
+    public Joueur(String nom, Aventurier aventurier){
         this.nom=nom;
+        this.aventurier=aventurier;
     }
 
 
@@ -24,8 +25,8 @@ public class Joueur {
         this.nom = nom;
     }
 
-    Tuile getPosition() {
-         //To change body of generated methods, choose Tools | Templates.
+    public Tuile getPosition() {
+         return aventurier.getPosition();
     }
         
         
