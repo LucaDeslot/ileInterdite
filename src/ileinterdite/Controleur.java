@@ -1,9 +1,12 @@
 package ileinterdite;
 
+import com.sun.glass.ui.SystemClipboard;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Controleur {
     private Grille grille;
+    private Scanner scanner;
     private ArrayList<Carte_Tresor_Abs_> cartes_trésor_defausse;
     private ArrayList<Aventurier> roles;
     private ArrayList<Tresor> trésors;
@@ -14,6 +17,7 @@ public class Controleur {
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
     
     public Controleur(){
+        scanner = new Scanner(System.in);
         grille = new Grille();
         roles = new ArrayList<>();
         trésors = new ArrayList<>();
@@ -23,6 +27,7 @@ public class Controleur {
         cartes_trésor_defausse = new ArrayList<>();
         cartes_trésor_pioche = new ArrayList<>();
         joueurs = new ArrayList<>();
+        
     }
     public void TourJoueur(Joueur joueur) {
 
@@ -44,45 +49,96 @@ public class Controleur {
     }
 
     public void AssecherCase(Joueur joueur) {
-        Tuile tuile;
-        String role;
-        Aventurier aventurier;
-        Etat etat_tuile;
-        ArrayList<Tuile> tuiles_adjacentes = new ArrayList<>();
+        Aventurier aventurier = joueur.getAventurier();
+        Tuile tuile_aventurier = aventurier.getPosition();
+        Etat etat_tuile= tuile_aventurier.getEtat();
+        ArrayList<Tuile> tuiles_assechables = getGrille().getTuilesAssechables(joueur);
+        int case_choisie;
+        boolean controle_boucle = true;
         
-        aventurier = joueur.getAventurier();
-        tuile = aventurier.getPosition();
-        System.out.println(tuile.getNumero());
-        role = joueur.getAventurier().getRole();
-        
-        etat_tuile= tuile.getEtat();
-        System.out.println(etat_tuile);
-        
-        if ("explorateur".equals(role)){
-            System.out.println("1ere");
-            for (Tuile tuile_courante : getGrille().getTuilesAdjacentesDiagonales(tuile)){
-                if (tuile_courante.getEtat()== Etat.INONDEE){
-                    tuiles_adjacentes.add(tuile_courante);
-                }
-            }
-        }else {
-            System.out.println("2eme");
-            for (Tuile tuile_courante : getGrille().getTuilesAdjacentes(tuile)){
-                System.out.println(tuile_courante.getNom()+" "+tuile_courante.getNumero()+" "+tuile_courante.getEtat()+"beuleubeuleu");
-                if(tuile_courante.getEtat()==Etat.INONDEE){
-                    tuiles_adjacentes.add(tuile_courante);
-                }
-            }
+        System.out.println("Voici les tuiles que vous pouvez assécher :");
+        for (Tuile tuiles : tuiles_assechables){       
+            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());    
         }
-        
-        for (Tuile tuiles : tuiles_adjacentes){
-            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat()+"beuleu");
-        }
-    }    
+        while (controle_boucle){
+            
+            System.out.println("rentrez le numero de la tuile que vous voulez assécher");
+            int str = scanner.nextInt();
+            case_choisie = str;
 
-    /**
-     * @return the grille
-     */
+            for (int i =0;i<tuiles_assechables.size();i++){
+                if (case_choisie==tuiles_assechables.get(i).getNumero()){
+                    grille.setEtat(case_choisie, Etat.ASSECHEE);
+                    controle_boucle = false;
+                    System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
+                }else if(i==tuiles_assechables.size()-1 && case_choisie != tuiles_assechables.get(i).getNumero() && controle_boucle){
+                    System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
+                }
+            } //fin for
+        } //fin while
+    }
+    
+    public void AssecherCaseIngenieur(Joueur joueur){
+        //controle boucle ==0 -> 1ere tuile à assécher
+        //controle boucle ==1 -> 2eme tuile à assécher
+        //controle boucle ==2 -> sortie de boucle
+        Aventurier aventurier = joueur.getAventurier();
+        Tuile tuile_aventurier = aventurier.getPosition();
+        Etat etat_tuile= tuile_aventurier.getEtat();
+        ArrayList<Tuile> tuiles_assechables1 = getGrille().getTuilesAssechables(joueur);
+        ArrayList<Tuile> tuiles_assechables2;
+        int case_choisie;
+        boolean deuxieme_assechage=false;
+        boolean premier_assechage =true;
+        
+        System.out.println("Voici les tuiles que vous pouvez assécher :");
+        for (Tuile tuiles : tuiles_assechables1){       
+            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());    
+        }
+        while (premier_assechage){
+                System.out.println("rentrez le numero de la tuile que vous voulez assécher");
+                int str = scanner.nextInt();
+                case_choisie = str;
+
+                for (int i =0;i<tuiles_assechables1.size();i++){
+                    if (case_choisie==tuiles_assechables1.get(i).getNumero()){
+                        grille.setEtat(case_choisie, Etat.ASSECHEE);
+                        premier_assechage=false;  
+                        System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
+
+                    }else if(i==tuiles_assechables1.size()-1 && case_choisie != tuiles_assechables1.get(i).getNumero() && premier_assechage==true){
+                        System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
+                    }
+                }//fin for    
+        }
+        System.out.println("Voulez-vous assécher une nouvelle tuile ? true/false");
+        boolean bool = scanner.nextBoolean();
+        deuxieme_assechage = bool;
+        if (deuxieme_assechage){
+            tuiles_assechables2=getGrille().getTuilesAssechables(joueur);
+            for (Tuile tuile : tuiles_assechables2){
+                        System.out.println(tuile.getNumero()+" "+tuile.getNumero());
+            }
+        }
+        while(deuxieme_assechage){
+            System.out.println("rentrez le numero de la tuile que vous voulez assécher");
+            int str = scanner.nextInt();
+            case_choisie = str;
+
+            for (int i =0;i<tuiles_assechables1.size();i++){
+                if (case_choisie==tuiles_assechables1.get(i).getNumero()){
+                    grille.setEtat(case_choisie, Etat.ASSECHEE);
+                    deuxieme_assechage=false;  
+                    System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
+
+                }else if(i==tuiles_assechables1.size()-1 && case_choisie != tuiles_assechables1.get(i).getNumero() && deuxieme_assechage==true){
+                    System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
+                }
+            }//fin for    
+        }
+    }
+
+
     public Grille getGrille() {
         return grille;
     }

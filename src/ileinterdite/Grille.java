@@ -52,7 +52,8 @@ import java.util.ArrayList;
  
         }
         // PARTIE TEST
-     }
+    }
+    
     public void setEtat(int num_tuile, Etat etat){
         this.getTuile(num_tuile).SetEtat(etat);
     }
@@ -142,11 +143,6 @@ import java.util.ArrayList;
            tuiles_adjacentes.add(tuile_droite);
        }
 
-        System.out.println("\n\n");
-        for (Tuile tuiles : tuiles_adjacentes){
-            
-            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat()+"tuiles_adjacentes");
-        }
         return tuiles_adjacentes;
     }
     
@@ -270,12 +266,35 @@ import java.util.ArrayList;
            tuiles_adjacentes_diagonales.add(tuile_bas_droite);
        }
 
-        System.out.println("\n\n");
-        for (Tuile tuiles : tuiles_adjacentes_diagonales){
-            
-            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat()+"tuiles_adjacentes_diagonales");
-        }
         return tuiles_adjacentes_diagonales;
+    }
+    
+    public ArrayList<Tuile> getTuilesAssechables(Joueur joueur){
+        Tuile tuile_joueur;
+        String role;
+        ArrayList<Tuile> tuiles_assechable = new ArrayList<>();
+        
+        tuile_joueur=joueur.getPosition();
+        role=joueur.getAventurier().getRole();
+        
+        if (tuile_joueur.getEtat()==Etat.INONDEE){
+            tuiles_assechable.add(tuile_joueur);
+        }
+        if (role.equals("explorateur")){
+            for (Tuile tuile_act : getTuilesAdjacentesDiagonales(tuile_joueur)){
+                if (tuile_act.getEtat()==Etat.INONDEE){
+                    tuiles_assechable.add(tuile_act);
+                }
+            }
+                 
+        }else{
+            for (Tuile tuile_act : getTuilesAdjacentes(tuile_joueur)){
+                if (tuile_act.getEtat()==Etat.INONDEE){
+                    tuiles_assechable.add(tuile_act);
+                }
+            }
+        }
+     return tuiles_assechable;
     }
     
 

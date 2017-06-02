@@ -73,7 +73,6 @@ public class Tuile {
     
     public void SetEtat(Etat etat){  
         this.etat=etat;
-        System.out.println("c'est passé dans setEtat");
     }
 
     public int[] getNUM_TUILES_VIDE() {

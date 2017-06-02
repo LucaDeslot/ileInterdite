@@ -19,7 +19,7 @@ public class Explorateur extends Aventurier {
     }
 
     public Tuile getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return super.getPosition();
     }
 
     @Override
@@ -27,8 +27,4 @@ public class Explorateur extends Aventurier {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
