@@ -16,7 +16,6 @@ public class Joueur {
             return this.aventurier;
     }
 
-
     public String getNom() {
         return nom;
     }
@@ -27,6 +26,10 @@ public class Joueur {
 
     public Tuile getPosition() {
          return aventurier.getPosition();
+    }
+    
+    public void setPostition(Tuile tuile){
+        aventurier.setPosition(tuile);
     }
         
         

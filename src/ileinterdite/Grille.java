@@ -269,14 +269,56 @@ import java.util.ArrayList;
         return tuiles_adjacentes_diagonales;
     }
     
+    public ArrayList<Tuile> getTuilesDeplacement(Joueur joueur){
+        Tuile tuile_joueur =joueur.getPosition();
+        String role = joueur.getAventurier().getRole();
+        ArrayList<Tuile> tuiles_deplacement = new ArrayList<>();
+        
+        if (role.equals("explorateur")){
+            for(Tuile tuile : getTuilesAdjacentesDiagonales(tuile_joueur)){
+                if (tuile.getEtat()== Etat.ASSECHEE || tuile.getEtat()==Etat.INONDEE){
+                    tuiles_deplacement.add(tuile);
+                }
+            }
+        /*}else if(role.equals("pilote")) {
+            for(Tuile tuile : getTuiles()){
+                //System.out.println(instance_tuile[i].getNumero()+" "+instance_tuile[i].getNom()+" "+instance_tuile[i].getEtat()+" beulebn");
+                if((tuile.getEtat()== Etat.ASSECHEE) || (tuile.getEtat()==Etat.INONDEE)){    
+                    tuiles_deplacement.add(tuile);
+                }
+            }*/
+        }else{
+            for(Tuile tuile : getTuilesAdjacentes(tuile_joueur)){
+                if (tuile.getEtat()== Etat.ASSECHEE || tuile.getEtat()==Etat.INONDEE){
+                    tuiles_deplacement.add(tuile);
+                }
+            }
+        }
+        return tuiles_deplacement;
+    }
+    /*
+    public ArrayList<Tuile> getTuilesDeplacementPilote(Joueur joueur){
+        
+    }
+    */
+    
+    public ArrayList<Tuile> getTuilesDeplacementPlongeur(Joueur joueur){
+        Tuile tuile_joueur = joueur.getPosition();
+        ArrayList<Tuile> tuiles_deplacement = new ArrayList<>();
+        
+        for (Tuile tuile : getTuilesAdjacentes(tuile_joueur)){
+            if (tuile.getEtat()!= Etat.VIDE){
+                tuiles_deplacement.add(tuile);
+            }
+        }
+        return tuiles_deplacement;
+    }
+    
     public ArrayList<Tuile> getTuilesAssechables(Joueur joueur){
-        Tuile tuile_joueur;
-        String role;
+        Tuile tuile_joueur = joueur.getPosition();
+        String role = joueur.getAventurier().getRole();
         ArrayList<Tuile> tuiles_assechable = new ArrayList<>();
-        
-        tuile_joueur=joueur.getPosition();
-        role=joueur.getAventurier().getRole();
-        
+
         if (tuile_joueur.getEtat()==Etat.INONDEE){
             tuiles_assechable.add(tuile_joueur);
         }

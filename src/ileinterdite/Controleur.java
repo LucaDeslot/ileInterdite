@@ -33,19 +33,74 @@ public class Controleur {
 
     }
 
-    public void Deplacement(Joueur joueur) {
-        String role_joueur_courant;
-        Tuile position_joueur_courant;
+    public void Deplacement(Joueur joueur) { // à appeler aussi pour explorateur
+        ArrayList<Tuile> tuiles_deplacement = getGrille().getTuilesDeplacement(joueur);
+        boolean controle_boucle =true;
+        
+        System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
+        for(Tuile tuile_deplacement : tuiles_deplacement){
+            System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
+        }
+        
+        while (controle_boucle){
+            
+            System.out.println("Rentrez le numéro de la tuile sur laquelle vous voulez vous déplacer :");
+            int tuile_choisie = scanner.nextInt(); //l'utilisateur saise le numéro de la tuile
 
-        //role_joueur_courant = joueur.getRole();
-        //position_joueur_courant = joueur.getPosition();
-
-     //   grille.getCasesAdjacentes(position_joueur_courant);
+            for (int i =0;i<tuiles_deplacement.size();i++){
+                if (tuile_choisie==tuiles_deplacement.get(i).getNumero()){
+                    joueur.setPostition(getGrille().getTuile(tuile_choisie)); // on modifie la position du joueur
+                    controle_boucle = false;
+                    System.out.println("Vous vous êtes bien déplacé sur la tuile :"+tuile_choisie+" "+grille.getTuile(tuile_choisie).getNom()+" "+grille.getTuile(tuile_choisie).getEtat());    
+                }else if(i==tuiles_deplacement.size()-1 && tuile_choisie != tuiles_deplacement.get(i).getNumero() && controle_boucle){
+                    System.out.println("Vous ne pouvez pas vous déplacer sur cette tuile, veuillez rentrer un nouveau numero :");    
+                }
+            } //fin for
+        } //fin while
+        //partie test
+        System.out.println(joueur.getPosition().getNumero());
     }
-
-
-    public void DeplacementExplorateur(Joueur joueur) {
-
+    
+    public void DeplacementPlongeur(Joueur joueur){
+        ArrayList<Tuile> tuiles_deplacement_plongeur = getGrille().getTuilesDeplacementPlongeur(joueur);
+        boolean controle_boucle = true;
+        
+        System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
+        for(Tuile tuile_deplacement : tuiles_deplacement_plongeur){
+            System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
+        }
+        
+        while(controle_boucle){
+            
+            System.out.println("Rentrez le numéro de la tuile sur laquelle vous voulez vous déplacer :");
+            int tuile_choisie = scanner.nextInt(); //l'utilisateur saise le numéro de la tuile
+            
+            for (int i =0;i<tuiles_deplacement_plongeur.size();i++){
+                if (tuile_choisie==tuiles_deplacement_plongeur.get(i).getNumero()){
+                    joueur.setPostition(getGrille().getTuile(tuile_choisie)); // on modifie la position du joueur
+                    if (getGrille().getTuile(tuile_choisie).getEtat()==Etat.INONDEE||getGrille().getTuile(tuile_choisie).getEtat()==Etat.DISPARUE){
+                        controle_boucle = true;
+                        for(Tuile tuile_deplacement : tuiles_deplacement_plongeur){
+                            System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
+                        }
+                    }else{
+                        controle_boucle=false;
+                        System.out.println("Vous vous êtes bien déplacé sur la tuile :"+tuile_choisie+" "+grille.getTuile(tuile_choisie).getNom()+" "+grille.getTuile(tuile_choisie).getEtat());
+                    }
+                        
+                }else if(i==tuiles_deplacement_plongeur.size()-1 && tuile_choisie != tuiles_deplacement_plongeur.get(i).getNumero() && controle_boucle){
+                    System.out.println("Vous ne pouvez pas vous déplacer sur cette tuile, veuillez rentrer un nouveau numero :");    
+                }
+            } //fin for
+        }
+    }
+    
+    public void DeplacementPilote(Joueur joueur){
+        
+    }
+    
+    public void DeplacementNavigateur(Joueur joueur){
+        
     }
 
     public void AssecherCase(Joueur joueur) {
@@ -53,7 +108,7 @@ public class Controleur {
         Tuile tuile_aventurier = aventurier.getPosition();
         Etat etat_tuile= tuile_aventurier.getEtat();
         ArrayList<Tuile> tuiles_assechables = getGrille().getTuilesAssechables(joueur);
-        int case_choisie;
+        
         boolean controle_boucle = true;
         
         System.out.println("Voici les tuiles que vous pouvez assécher :");
@@ -63,19 +118,20 @@ public class Controleur {
         while (controle_boucle){
             
             System.out.println("rentrez le numero de la tuile que vous voulez assécher");
-            int str = scanner.nextInt();
-            case_choisie = str;
+            int tuile_choisie = scanner.nextInt();
+            
 
             for (int i =0;i<tuiles_assechables.size();i++){
-                if (case_choisie==tuiles_assechables.get(i).getNumero()){
-                    grille.setEtat(case_choisie, Etat.ASSECHEE);
+                if (tuile_choisie==tuiles_assechables.get(i).getNumero()){
+                    grille.setEtat(tuile_choisie, Etat.ASSECHEE);
                     controle_boucle = false;
-                    System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
-                }else if(i==tuiles_assechables.size()-1 && case_choisie != tuiles_assechables.get(i).getNumero() && controle_boucle){
+                    System.out.println("la case numero :"+tuile_choisie+ " a bien été asséechée"+" "+grille.getTuile(tuile_choisie).getEtat());    
+                }else if(i==tuiles_assechables.size()-1 && tuile_choisie != tuiles_assechables.get(i).getNumero() && controle_boucle){
                     System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
                 }
             } //fin for
         } //fin while
+        
     }
     
     public void AssecherCaseIngenieur(Joueur joueur){
@@ -117,7 +173,7 @@ public class Controleur {
         if (deuxieme_assechage){
             tuiles_assechables2=getGrille().getTuilesAssechables(joueur);
             for (Tuile tuile : tuiles_assechables2){
-                        System.out.println(tuile.getNumero()+" "+tuile.getNumero());
+                        System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
             }
         }
         while(deuxieme_assechage){

@@ -27,12 +27,14 @@ public class Appli {
     
       
        
-        Aventurier aventurier = new Pilote();
+        Aventurier aventurier = new Plongeur();
         Joueur joueur = new Joueur("jean",aventurier);
         
         aventurier.setPosition(test.getGrille().getTuiles()[14]);
-        test.getGrille().setEtat(14, Etat.INONDEE);
-        test.getGrille().setEtat(9, Etat.INONDEE);
+        test.getGrille().setEtat(17, Etat.ASSECHEE);
+        test.getGrille().setEtat(15, Etat.INONDEE);
+        test.getGrille().setEtat(9, Etat.VIDE);
+        test.getGrille().setEtat(16, Etat.DISPARUE);
         tuile_pilote=(aventurier.getPosition());
         tuile_droite=test.getGrille().getTuile(tuile_pilote.getNumero()+1);
 
@@ -44,7 +46,7 @@ public class Appli {
             System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
         }
 
-       test.AssecherCaseIngenieur(joueur);
+       test.DeplacementPlongeur(joueur);
     }
     
 }

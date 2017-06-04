@@ -5,18 +5,17 @@ import java.util.ArrayList;
 public abstract class Aventurier {
     public ArrayList<Carte_Tresor_Abs_> main = new ArrayList<Carte_Tresor_Abs_>();
     private Joueur joueur_associé;
-    private Tuile tuile;
     private Tuile position_actuelle;
     
     
     public abstract String getRole();
     public Tuile getPosition(){
-        return tuile;
+        return position_actuelle;
     }
     public abstract Joueur getJoueur();
     
     public void setPosition(Tuile tuile){
-        this.tuile=tuile;
+        this.position_actuelle=tuile;
     }
 
 }
