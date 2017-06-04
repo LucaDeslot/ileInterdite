@@ -62,37 +62,42 @@ public class Controleur {
     }
     
     public void DeplacementPlongeur(Joueur joueur){
-        ArrayList<Tuile> tuiles_deplacement_plongeur = getGrille().getTuilesDeplacementPlongeur(joueur);
+        
         boolean controle_boucle = true;
         
         System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
-        for(Tuile tuile_deplacement : tuiles_deplacement_plongeur){
+        for(Tuile tuile_deplacement : getGrille().getTuilesDeplacementPlongeur(joueur)){
             System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
         }
         
         while(controle_boucle){
-            
             System.out.println("Rentrez le numéro de la tuile sur laquelle vous voulez vous déplacer :");
             int tuile_choisie = scanner.nextInt(); //l'utilisateur saise le numéro de la tuile
             
-            for (int i =0;i<tuiles_deplacement_plongeur.size();i++){
-                if (tuile_choisie==tuiles_deplacement_plongeur.get(i).getNumero()){
-                    joueur.setPostition(getGrille().getTuile(tuile_choisie)); // on modifie la position du joueur
-                    if (getGrille().getTuile(tuile_choisie).getEtat()==Etat.INONDEE||getGrille().getTuile(tuile_choisie).getEtat()==Etat.DISPARUE){
-                        controle_boucle = true;
-                        for(Tuile tuile_deplacement : tuiles_deplacement_plongeur){
-                            System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
-                        }
-                    }else{
-                        controle_boucle=false;
-                        System.out.println("Vous vous êtes bien déplacé sur la tuile :"+tuile_choisie+" "+grille.getTuile(tuile_choisie).getNom()+" "+grille.getTuile(tuile_choisie).getEtat());
+            while (getGrille().getTuile(tuile_choisie).getEtat() == Etat.INONDEE || getGrille().getTuile(tuile_choisie).getEtat() == Etat.DISPARUE){
+                for (int i =0;i<getGrille().getTuilesDeplacementPlongeur(joueur).size();i++){
+                    if (tuile_choisie==getGrille().getTuilesDeplacementPlongeur(joueur).get(i).getNumero()){
+                         joueur.setPostition(getGrille().getTuile(tuile_choisie)); //on modifie la position du joueur
                     }
-                        
-                }else if(i==tuiles_deplacement_plongeur.size()-1 && tuile_choisie != tuiles_deplacement_plongeur.get(i).getNumero() && controle_boucle){
-                    System.out.println("Vous ne pouvez pas vous déplacer sur cette tuile, veuillez rentrer un nouveau numero :");    
+                 }
+                System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer :");
+                for(Tuile tuile_deplacement : getGrille().getTuilesDeplacementPlongeur(joueur)){
+                    System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
                 }
-            } //fin for
-        }
+                System.out.println("Rentrez le numéro de la tuile sur laquelle vous voulez vous déplacer :");
+                tuile_choisie = scanner.nextInt();
+            }
+            
+            if (getGrille().getTuile(tuile_choisie).getEtat()==Etat.ASSECHEE){
+                for (int i =0;i<getGrille().getTuilesDeplacementPlongeur(joueur).size();i++){
+                    if (tuile_choisie==getGrille().getTuilesDeplacementPlongeur(joueur).get(i).getNumero()){
+                         joueur.setPostition(getGrille().getTuile(tuile_choisie)); //on modifie la position du joueur
+                    }
+                }//fin for
+            controle_boucle=false;
+                System.out.println("Vous vous êtes bien déplacé sur la tuile :"+getGrille().getTuile(tuile_choisie).getNumero()+" "+getGrille().getTuile(tuile_choisie).getNom()+" "+getGrille().getTuile(tuile_choisie).getEtat());
+            }//fin if
+        }//fin while     
     }
     
     public void DeplacementPilote(Joueur joueur){
