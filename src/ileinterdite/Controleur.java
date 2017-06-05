@@ -38,12 +38,14 @@ public class Controleur {
     public void InitJoueur(){
         System.out.println("Rentrez le nombre de joueurs (de 4 à 6): ");
         int nb_joueurs = scanner.nextInt();
+        scanner.nextLine();
         
         if (nb_joueurs<4){
             System.out.println("Il n'y a pas assez de joueurs.");
         }else if(nb_joueurs>6){
             System.out.println("Il y a trop de joueurs.");
         }else{
+            String nom_joueur;
             Aventurier pilote = new Pilote();
             Aventurier ingenieur = new Ingenieur();
             Aventurier messager = new Messager();
@@ -76,13 +78,14 @@ public class Controleur {
 
             for (int i = 1; i<=nb_joueurs;i++){
                 System.out.println("rentrez le nom du joueur :");
-                String nom_joueur = scanner.nextLine(); //on définie le nom du joueur
+                nom_joueur = scanner.nextLine(); //on définie le nom du joueur
+                
 
                 System.out.println("quel rôle voulez vous prendre :");
                 for (int j =0 ; j<role_non_uitlises.size();j++){
                     System.out.println(j+" "+role_non_uitlises.get(j).getRole());
                 }
-                int num_aventurier_choisie = scanner.nextInt();
+                int num_aventurier_choisie = scanner.nextInt();scanner.nextLine();
                 if (num_aventurier_choisie>=0 && num_aventurier_choisie<7){
                     aventurier=role_non_uitlises.get(num_aventurier_choisie);
                     role_non_uitlises.remove(aventurier);
@@ -91,7 +94,7 @@ public class Controleur {
                         System.out.println("Il n'y a aucun rôle correspondant à ce chiffre, veuillez en rentrer un autre :");
                         for (int j =1 ; j<=role_non_uitlises.size();j++){
                             System.out.println(j+" "+role_non_uitlises.get(j).getRole());
-                            num_aventurier_choisie=scanner.nextInt();
+                            num_aventurier_choisie=scanner.nextInt();scanner.nextLine();
                         }
                     }//fin while
                 }//fin if
@@ -100,7 +103,7 @@ public class Controleur {
                 for (int j =0 ; j<pions_non_utilises.size();j++){
                     System.out.println(j+" "+pions_non_utilises.get(j));
                 }
-                int num_pion_choisie = scanner.nextInt();
+                int num_pion_choisie = scanner.nextInt();scanner.nextLine();
                 if (num_pion_choisie>=0 && num_pion_choisie<7){
                     pion=pions_non_utilises.get(num_pion_choisie);
                     pions_non_utilises.remove(pion);
@@ -109,11 +112,13 @@ public class Controleur {
                         System.out.println("Il n'y a aucun pion correspondant à ce chiffre, veuillez en rentrer un autre :");
                         for (int j =1 ; j<=pions_non_utilises.size();j++){
                             System.out.println(j+" "+pions_non_utilises.get(j));
-                            num_pion_choisie=scanner.nextInt();
+                            num_pion_choisie=scanner.nextInt();scanner.nextLine();
                         }
                     }//fin while
                 }//fin if
+                
             }//fin for
+            
         }
         
     }
