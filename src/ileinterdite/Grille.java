@@ -49,9 +49,7 @@ import java.util.ArrayList;
                a = a-1;
             }
             num= num+1;
- 
         }
-        // PARTIE TEST
     }
     
     public void setEtat(int num_tuile, Etat etat){
@@ -72,7 +70,6 @@ import java.util.ArrayList;
         return resultat;
     }
     
-    
     public ArrayList<Tuile> getTuilesAdjacentes(Tuile tuile){
         ArrayList<Tuile> tuiles_adjacentes = new ArrayList<>();
         int num_tuile_courante;
@@ -81,8 +78,6 @@ import java.util.ArrayList;
         Tuile tuile_bas ;
         Tuile tuile_gauche = getTuile(num_tuile_courante-1);
         Tuile tuile_droite = getTuile(num_tuile_courante+1);
-        
-        
         
         //----------------------------------------------------------------------------------------------------------------------//
         
@@ -142,7 +137,6 @@ import java.util.ArrayList;
        if ((tuile_droite != null)){
            tuiles_adjacentes.add(tuile_droite);
        }
-
         return tuiles_adjacentes;
     }
     
@@ -265,7 +259,6 @@ import java.util.ArrayList;
        if ((tuile_bas_droite != null)){
            tuiles_adjacentes_diagonales.add(tuile_bas_droite);
        }
-
         return tuiles_adjacentes_diagonales;
     }
     
@@ -282,7 +275,7 @@ import java.util.ArrayList;
             }
         /*}else if(role.equals("pilote")) {
             for(Tuile tuile : getTuiles()){
-                //System.out.println(instance_tuile[i].getNumero()+" "+instance_tuile[i].getNom()+" "+instance_tuile[i].getEtat()+" beulebn");
+                //System.out.println(instance_tuile[i].getNumero()+" "+instance_tuile[i].getNom()+" "+instance_tuile[i].getEtat());
                 if((tuile.getEtat()== Etat.ASSECHEE) || (tuile.getEtat()==Etat.INONDEE)){    
                     tuiles_deplacement.add(tuile);
                 }
@@ -326,23 +319,16 @@ import java.util.ArrayList;
             for (Tuile tuile_act : getTuilesAdjacentesDiagonales(tuile_joueur)){
                 if (tuile_act.getEtat()==Etat.INONDEE){
                     tuiles_assechable.add(tuile_act);
-                }
-            }
-                 
+                }//fin if
+            }//fin if  
         }else{
             for (Tuile tuile_act : getTuilesAdjacentes(tuile_joueur)){
                 if (tuile_act.getEtat()==Etat.INONDEE){
                     tuiles_assechable.add(tuile_act);
-                }
-            }
-        }
+                }//fin if
+            }//fin for
+        }//fin if
      return tuiles_assechable;
     }
-    
-
-   
-    
-   
- 
  }
  

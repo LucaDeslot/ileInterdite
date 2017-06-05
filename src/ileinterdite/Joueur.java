@@ -1,16 +1,18 @@
 package ileinterdite;
 import ileinterdite.Aventurier;
 import ileinterdite.Tuile;
+import ileinterdite.Utils.Pion;
 
 public class Joueur {
     private Aventurier aventurier;
     private String nom;
+    private Pion pion;
 
-    public Joueur(String nom, Aventurier aventurier){
+    public Joueur(String nom, Aventurier aventurier,Pion pion){
         this.nom=nom;
         this.aventurier=aventurier;
+        this.pion=pion;
     }
-
 
     public Aventurier getAventurier() {
             return this.aventurier;

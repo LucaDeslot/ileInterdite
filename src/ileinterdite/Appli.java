@@ -7,15 +7,8 @@ package ileinterdite;
 
 import ileinterdite.Utils.Pion;
 
-/**
- *
- * @author carriefa
- */
 public class Appli {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         // TODO code application logic here
         IleInterdite controleur = new IleInterdite() ;
@@ -24,29 +17,21 @@ public class Appli {
         Tuile tuile_droite;
         VueAventurier vueAventurier = new VueAventurier ("Manon", "Explorateur",Pion.ROUGE.getCouleur(),controleur );
        
-    
-      
-       
-        Aventurier aventurier = new Ingenieur();
-        Joueur joueur = new Joueur("jean",aventurier);
+        Aventurier aventurier = new Pilote();
+        
         
         aventurier.setPosition(test.getGrille().getTuiles()[14]);
-        test.getGrille().setEtat(17, Etat.ASSECHEE);
-        test.getGrille().setEtat(15, Etat.ASSECHEE);
-        test.getGrille().setEtat(9, Etat.VIDE);
+        test.getGrille().setEtat(15, Etat.DISPARUE);
+        test.getGrille().setEtat(8, Etat.VIDE);
         test.getGrille().setEtat(13, Etat.INONDEE);
+        //test.getGrille().setEtat(20, Etat.INONDEE);
         tuile_pilote=(aventurier.getPosition());
         tuile_droite=test.getGrille().getTuile(tuile_pilote.getNumero()+1);
 
-        
-        //test.getGrille().setEtat(tuile_droite.getNumero(),Etat.INONDEE);
-
-        
         for (Tuile tuile : test.getGrille().getTuiles()){
             System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
         }
-        
-       test.AssecherCaseIngenieur(joueur);
+       test.InitJoueur();
        //test.DeplacementPlongeur(joueur);
     }
     

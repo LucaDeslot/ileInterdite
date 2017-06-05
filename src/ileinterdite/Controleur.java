@@ -1,8 +1,10 @@
 package ileinterdite;
 
 import com.sun.glass.ui.SystemClipboard;
+import ileinterdite.Utils.Pion;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Controleur {
     private Grille grille;
@@ -31,6 +33,89 @@ public class Controleur {
     }
     public void TourJoueur(Joueur joueur) {
 
+    }
+    
+    public void InitJoueur(){
+        System.out.println("Rentrez le nombre de joueurs (de 4 à 6): ");
+        int nb_joueurs = scanner.nextInt();
+        
+        if (nb_joueurs<4){
+            System.out.println("Il n'y a pas assez de joueurs.");
+        }else if(nb_joueurs>6){
+            System.out.println("Il y a trop de joueurs.");
+        }else{
+            Aventurier pilote = new Pilote();
+            Aventurier ingenieur = new Ingenieur();
+            Aventurier messager = new Messager();
+            Aventurier explorateur = new Explorateur();
+            Aventurier plongeur = new Plongeur();
+            Aventurier navigateur = new Navigateur();
+
+            ArrayList<Pion> pions = new ArrayList<>();
+            ArrayList<Aventurier> aventuriers = new ArrayList<>();
+            ArrayList<Aventurier> role_non_uitlises = aventuriers;
+            Aventurier aventurier;
+            Pion pion;
+
+            pions.add(Pion.BLEU);
+            pions.add(Pion.JAUNE);
+            pions.add(Pion.ORANGE);
+            pions.add(Pion.ROUGE);
+            pions.add(Pion.VERT);
+            pions.add(Pion.VIOLET);
+
+            aventuriers.add(pilote);
+            aventuriers.add(ingenieur);
+            aventuriers.add(messager);
+            aventuriers.add(explorateur);
+            aventuriers.add(plongeur);
+            aventuriers.add(navigateur);
+
+
+            ArrayList<Pion> pions_non_utilises = pions;
+
+            for (int i = 1; i<=nb_joueurs;i++){
+                System.out.println("rentrez le nom du joueur :");
+                String nom_joueur = scanner.nextLine(); //on définie le nom du joueur
+
+                System.out.println("quel rôle voulez vous prendre :");
+                for (int j =0 ; j<role_non_uitlises.size();j++){
+                    System.out.println(j+" "+role_non_uitlises.get(j).getRole());
+                }
+                int num_aventurier_choisie = scanner.nextInt();
+                if (num_aventurier_choisie>=0 && num_aventurier_choisie<7){
+                    aventurier=role_non_uitlises.get(num_aventurier_choisie);
+                    role_non_uitlises.remove(aventurier);
+                }else{
+                    while (num_aventurier_choisie<0 || num_aventurier_choisie>=7){
+                        System.out.println("Il n'y a aucun rôle correspondant à ce chiffre, veuillez en rentrer un autre :");
+                        for (int j =1 ; j<=role_non_uitlises.size();j++){
+                            System.out.println(j+" "+role_non_uitlises.get(j).getRole());
+                            num_aventurier_choisie=scanner.nextInt();
+                        }
+                    }//fin while
+                }//fin if
+                
+                System.out.println("Quelle couleur de pion voulez-vous avoir? :");
+                for (int j =0 ; j<pions_non_utilises.size();j++){
+                    System.out.println(j+" "+pions_non_utilises.get(j));
+                }
+                int num_pion_choisie = scanner.nextInt();
+                if (num_pion_choisie>=0 && num_pion_choisie<7){
+                    pion=pions_non_utilises.get(num_pion_choisie);
+                    pions_non_utilises.remove(pion);
+                }else{
+                    while (num_pion_choisie<0 || num_pion_choisie>=7){
+                        System.out.println("Il n'y a aucun pion correspondant à ce chiffre, veuillez en rentrer un autre :");
+                        for (int j =1 ; j<=pions_non_utilises.size();j++){
+                            System.out.println(j+" "+pions_non_utilises.get(j));
+                            num_pion_choisie=scanner.nextInt();
+                        }
+                    }//fin while
+                }//fin if
+            }//fin for
+        }
+        
     }
 
     public void Deplacement(Joueur joueur) { // à appeler aussi pour explorateur
@@ -94,7 +179,7 @@ public class Controleur {
                          joueur.setPostition(getGrille().getTuile(tuile_choisie)); //on modifie la position du joueur
                     }
                 }//fin for
-            controle_boucle=false;
+                controle_boucle=false;
                 System.out.println("Vous vous êtes bien déplacé sur la tuile :"+getGrille().getTuile(tuile_choisie).getNumero()+" "+getGrille().getTuile(tuile_choisie).getNom()+" "+getGrille().getTuile(tuile_choisie).getEtat());
             }//fin if
         }//fin while     
@@ -108,7 +193,7 @@ public class Controleur {
         
     }
 
-    public void AssecherCase(Joueur joueur) {
+    public void AssecherTuile(Joueur joueur) {
         ArrayList<Tuile> tuiles_assechables = getGrille().getTuilesAssechables(joueur);
         boolean controle_boucle = true;
         
@@ -128,13 +213,16 @@ public class Controleur {
                     controle_boucle = false;
                     System.out.println("la case numero :"+tuile_choisie+ " a bien été asséechée"+" "+grille.getTuile(tuile_choisie).getEtat());    
                 }else if(i==tuiles_assechables.size()-1 && tuile_choisie != tuiles_assechables.get(i).getNumero() && controle_boucle){
-                    System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
+                    System.out.println("Vous ne pouvez pas assécher cette tuile!");  
+                    for (Tuile tuiles : tuiles_assechables){       
+                        System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());    
+                    }
                 }
             } //fin for
         } //fin while 
     }
     
-    public void AssecherCaseIngenieur(Joueur joueur){
+    public void AssecherTuileIngenieur(Joueur joueur){
         //controle boucle ==0 -> 1ere tuile à assécher
         //controle boucle ==1 -> 2eme tuile à assécher
         //controle boucle ==2 -> sortie de boucle
@@ -160,11 +248,14 @@ public class Controleur {
                         System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
 
                     }else if(i==tuiles_assechables1.size()-1 && case_choisie != tuiles_assechables1.get(i).getNumero() && premier_assechage==true){
-                        System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
-                    }
+                        System.out.println("Vous ne pouvez pas assécher cette tuile!");  
+                        for (Tuile tuiles : tuiles_assechables1){       
+                            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());    
+                        }    
+                    }//fin if
                 }//fin for    
         }
-        for (Tuile tuile : getGrille().getTuilesAssechables(joueur)){
+        for (Tuile tuile : getGrille().getTuilesAssechables(joueur)){ // on vérifie si il y a d'autres cases à assécher
             if (tuile.getEtat()==Etat.INONDEE){
                 possibilite_deuxieme_assechage=true;
             }
@@ -176,29 +267,31 @@ public class Controleur {
             if (deuxieme_assechage){
                 tuiles_assechables2=getGrille().getTuilesAssechables(joueur);
                 for (Tuile tuile : tuiles_assechables2){
-                            System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
+                    System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
                 }
-            }
-            while(deuxieme_assechage){
-                System.out.println("rentrez le numero de la tuile que vous voulez assécher");
-                int case_choisie = scanner.nextInt();
+            
+                while(deuxieme_assechage){
+                    System.out.println("rentrez le numero de la tuile que vous voulez assécher");
+                    int case_choisie = scanner.nextInt();
 
 
-                for (int i =0;i<tuiles_assechables1.size();i++){
-                    if (case_choisie==tuiles_assechables1.get(i).getNumero()){
-                        grille.setEtat(case_choisie, Etat.ASSECHEE);
-                        deuxieme_assechage=false;  
-                        System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
+                    for (int i =0;i<tuiles_assechables2.size();i++){
+                        if (case_choisie==tuiles_assechables2.get(i).getNumero()){
+                            grille.setEtat(case_choisie, Etat.ASSECHEE);
+                            deuxieme_assechage=false;  
+                            System.out.println("la case numero :"+case_choisie+ " a bien été asséechée"+" "+grille.getTuile(case_choisie).getEtat());    
 
-                    }else if(i==tuiles_assechables1.size()-1 && case_choisie != tuiles_assechables1.get(i).getNumero() && deuxieme_assechage==true){
-                        System.out.println("Vous ne pouvez pas assécher cette tuile, veuillez rentrer un nouveau numero :");    
-                    }
-                }//fin for    
-            }
-        }
-        
-    }
-
+                        }else if(i==tuiles_assechables2.size()-1 && case_choisie != tuiles_assechables2.get(i).getNumero() && deuxieme_assechage==true){
+                            System.out.println("Vous ne pouvez pas assécher cette tuile!");  
+                            for (Tuile tuiles : tuiles_assechables2){       
+                                System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());    
+                            } //fin for   
+                        }//fin
+                    }//fin for    
+                }//fin while
+            }//fin if
+        }//fin if 
+    }//fin if
 
     public Grille getGrille() {
         return grille;
