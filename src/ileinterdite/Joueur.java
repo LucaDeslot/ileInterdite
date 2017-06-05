@@ -33,6 +33,27 @@ public class Joueur {
     public void setPostition(Tuile tuile){
         aventurier.setPosition(tuile);
     }
+
+    /**
+     * @param aventurier the aventurier to set
+     */
+    public void setAventurier(Aventurier aventurier) {
+        this.aventurier = aventurier;
+    }
+
+    /**
+     * @return the pion
+     */
+    public Pion getPion() {
+        return pion;
+    }
+
+    /**
+     * @param pion the pion to set
+     */
+    public void setPion(Pion pion) {
+        this.pion = pion;
+    }
         
         
 }

@@ -2,6 +2,7 @@ package ileinterdite;
 
 import com.sun.glass.ui.SystemClipboard;
 import ileinterdite.Utils.Pion;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,8 +32,52 @@ public class Controleur {
         joueurs = new ArrayList<>();
         
     }
+    public void Jeu (){
+        boolean partiecontinue = true ;
+        
+        InitJoueur();
+        while (partiecontinue){
+        for (Joueur joueur : getJoueurs()) {
+            TourJoueur(joueur);
+        }}
+    }
+           
     public void TourJoueur(Joueur joueur) {
-
+        int pointsActions = 3 ;
+        boolean sortie = false ;
+        String couleur = joueur.getPion().name();
+        System.out.println("Tour de "+joueur.getNom()+"("+joueur.getAventurier().getRole()+")"+"ayant le pion "+couleur);
+        while (pointsActions > 0 && sortie == false ){
+            System.out.println("Actions possibles par ");
+            System.out.println("0- Passer tour");
+            System.out.println("1- Deplacement ");
+            System.out.println("2- Afficher la grille");
+            if (grille.getTuilesAssechables(joueur).size() > 0 ){
+                System.out.println("3- Assecher "); 
+            }
+            int action = scanner.nextInt();
+            scanner.nextLine();
+                if ( action == 0 ) {
+                    sortie =true ;
+                }  
+                else if (action == 1){
+                    Deplacement(joueur);
+                    pointsActions = pointsActions - 1 ;
+                }
+                else if (action == 2){
+                     for (Tuile tuile : getGrille().getTuiles()){
+                    System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
+                    }
+                }
+                else if(action == 3 && grille.getTuilesAssechables(joueur).size() > 0 ){
+                    AssecherTuile(joueur);
+                    pointsActions = pointsActions - 1 ;
+                }
+                
+                else {
+                    System.out.println("Action Impossible .");
+                }
+        }
     }
     
     public void InitJoueur(){
@@ -56,8 +101,8 @@ public class Controleur {
             ArrayList<Pion> pions = new ArrayList<>();
             ArrayList<Aventurier> aventuriers = new ArrayList<>();
             ArrayList<Aventurier> role_non_uitlises = aventuriers;
-            Aventurier aventurier;
-            Pion pion;
+            Aventurier aventurier = null;
+            Pion pion = null;
 
             pions.add(Pion.BLEU);
             pions.add(Pion.JAUNE);
@@ -77,6 +122,8 @@ public class Controleur {
             ArrayList<Pion> pions_non_utilises = pions;
 
             for (int i = 1; i<=nb_joueurs;i++){
+               
+                
                 System.out.println("rentrez le nom du joueur :");
                 nom_joueur = scanner.nextLine(); //on définie le nom du joueur
                 
@@ -116,7 +163,9 @@ public class Controleur {
                         }
                     }//fin while
                 }//fin if
-                
+                Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
+                joueur.setPostition(grille.getTuile(7));
+                getJoueurs().add(joueur);
             }//fin for
             
         }
@@ -300,5 +349,12 @@ public class Controleur {
 
     public Grille getGrille() {
         return grille;
+    }
+
+    /**
+     * @return the joueurs
+     */
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
     }
 }
