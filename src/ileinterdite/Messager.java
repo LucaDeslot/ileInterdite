@@ -8,10 +8,7 @@ private String role = "messager";
         return role;
     }
 
-    @Override
-    public Tuile getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
 
     @Override
     public Joueur getJoueur() {

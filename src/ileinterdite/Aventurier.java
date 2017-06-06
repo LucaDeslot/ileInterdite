@@ -9,6 +9,7 @@ public abstract class Aventurier {
     
     
     public abstract String getRole();
+    
     public Tuile getPosition(){
         return position_actuelle;
     }
