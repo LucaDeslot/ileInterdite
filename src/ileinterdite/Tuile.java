@@ -2,19 +2,20 @@ package ileinterdite;
 
 import java.util.ArrayList;
 import ileinterdite.Etat;
+import ileinterdite.Utils.Pion;
 
 public class Tuile {
-    private ArrayList<Aventurier> pions;
+    private Pion pion_associe;
     private ArrayList<Aventurier> pionsPrésents = new ArrayList<Aventurier>();
     public Carte_Inondation carte;
     private Etat etat;
-    private Tresor tresorAssocié;
+    private Tresor tresor_associe;
     private int numero;
     private String nom;
     private final String [] NOM_TUILES ={"La Caverne Des Ombres", "Le Val Du Crépuscule", "La Porte De Cuivre", "Le Marais Brumeux", 
-                                   "Le Jardin Des Murmures", "La Caverne du Brasier", "La Porte d'Or","Porte De Fer", "Le Temple Du Soleil", 
+                                   "Le Jardin Des Murmures", "La Caverne du Brasier", "La Porte d'Or","La Porte De Fer", "Le Temple Du Soleil", 
                                    "Le Pont Des Abîmes", "La Porte d'Argent", "Le Jardin Des Hurlements", 
-                                   "Les Dunes De L'illusion","Les Falaises De l'Oubli","L'Observatoire","Le Palais Des Marais","L'héliport","Le Rocher Fantôme",
+                                   "Les Dunes De L'illusion","Les Falaises De l'Oubli","L'Observatoire","Le Palais Des Marees","L'héliport","Le Rocher Fantôme",
                                    "Le Temple De La Lune","La forêt Pourpre","Le Lagon Perdu","La Porte De Bronze","Le Palais De Corail","La Tour De Guet"};
     private final int [] NUM_TUILES_VIDE ={0,1,6,4,5,11,24,29,30,31,34,35};
 
@@ -82,6 +83,50 @@ public class Tuile {
     public Etat getEtat() {
         return etat;
     }
+
+    public Tresor getTresorAssocié() {
+        return tresor_associe;
+    }
+
+    public void setTresorAssocié() {
+        if (getNOM_TUILES()[this.getNumero()].equals("Le Temple De La Lune") || getNOM_TUILES()[this.getNumero()].equals("Le Temple Du Soleil")){
+            tresor_associe = new Tresor("La Pierre Sacrée");
+        }else if(getNOM_TUILES()[this.getNumero()].equals("Le Jardin Des Murmures") || getNOM_TUILES()[this.getNumero()].equals("Le Jardin Des Hurlements")){
+            tresor_associe = new Tresor("La Statue Du Zéphyr");
+        }else if(getNOM_TUILES()[this.getNumero()].equals("La Caverne du Brasier") || getNOM_TUILES()[this.getNumero()].equals("La Caverne Des Ombres")){
+            tresor_associe = new Tresor("Le Cristal Ardent");
+        }else if(getNOM_TUILES()[this.getNumero()].equals("Le Palais De Corail") || getNOM_TUILES()[this.getNumero()].equals("Le Palais Des Marees")){
+            tresor_associe = new Tresor("Le Calice De L’onde");
+        }else{
+            tresor_associe=null;
+        }
+        
+    }
+
+    public Pion getPion() {
+        return pion_associe;
+    }
+
+    public void setPionAssocie() {
+        if (getNOM_TUILES()[this.getNumero()].equals("La Porte De Bronze")){
+            pion_associe = Pion.ROUGE;
+        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte De Fer")){
+            pion_associe = Pion.VIOLET;
+        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte d'Or")){
+            pion_associe = Pion.JAUNE;
+        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte d'Argent")){
+            pion_associe = Pion.ORANGE;
+        }else if(getNOM_TUILES()[this.getNumero()].equals("L'héliport")){
+            pion_associe = Pion.BLEU;
+        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte De Cuivre")){
+            pion_associe = Pion.VERT;
+        }else{
+            pion_associe = null;
+        }
+            
+        }
+    
+    
 
 
 }

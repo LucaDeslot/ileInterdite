@@ -26,7 +26,7 @@ import java.util.ArrayList;
         }
         
         instance_tuile = new Tuile [36];
-        initTuiles();    
+        initTuiles();
      }
      
 
@@ -45,6 +45,8 @@ import java.util.ArrayList;
                 instance_tuile[i].setNom(null);
             }else{
                instance_tuile[i].setNom(nom_tuiles_init.get(alea));
+               instance_tuile[i].setTresorAssocié();
+               instance_tuile[i].setPionAssocie();
                nom_tuiles_init.remove(alea);
                a = a-1;
             }
