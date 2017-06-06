@@ -19,10 +19,6 @@ public class Navigateur extends Aventurier {
         this.role = role;
     }
 
-    @Override
-    public Tuile getPosition() {
-        return super.getPosition();
-    }
 
     @Override
     public Joueur getJoueur() {

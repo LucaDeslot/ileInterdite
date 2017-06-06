@@ -77,7 +77,9 @@ public class Controleur {
                 else {
                     System.out.println("Action Impossible .");
                 }
+                
         }
+        System.out.println("Fin du tour de "+joueur.getNom());
     }
     
     public void InitJoueur(){
