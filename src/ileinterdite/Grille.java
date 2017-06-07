@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import ileinterdite.Utils.Pion;
 import java.util.ArrayList;
 
  public class Grille {
@@ -18,6 +19,7 @@ import java.util.ArrayList;
             |24|25|26|27|28|29|
             |30|31|32|33|34|35|
          */
+         
         tuile_type= new Tuile();
         nom_tuiles_init = new ArrayList<>();
                 
@@ -31,12 +33,14 @@ import java.util.ArrayList;
      
 
     public void initTuiles(){
+        
         int alea;
         int a = tuile_type.getNOM_TUILES().length-1;
         int num = 0;
              
         for(int i = 0; i < getTuiles().length; i++){ // boucle qui parcoute les nom des tuiles
-            alea = (int) (Math.random() * (a - 0)); // alea un nombre netre 0 et 35
+            //alea = (int) (Math.random() * (a - 0)); // alea un nombre netre 0 et 35
+            alea=a; // A MODIFIER!!!!
             instance_tuile[i] = new Tuile(alea);
             instance_tuile[i].setNumero(num);// set le numéro
             instance_tuile[i].setEtat(num); // set l'état
@@ -45,12 +49,13 @@ import java.util.ArrayList;
                 instance_tuile[i].setNom(null);
             }else{
                instance_tuile[i].setNom(nom_tuiles_init.get(alea));
-               instance_tuile[i].setTresorAssocié();
-               instance_tuile[i].setPionAssocie();
+              // instance_tuile[i].setTresorAssocié();
+              // instance_tuile[i].setPionAssocie();
                nom_tuiles_init.remove(alea);
                a = a-1;
             }
             num= num+1;
+            System.out.println(instance_tuile[i].getNom());
         }
     }
     
@@ -70,6 +75,16 @@ import java.util.ArrayList;
             }
         }
         return resultat;
+    }
+    
+    public int getNumTuilePion(Pion pion){
+        int num_tuile = 36;
+        for(Tuile tuile : instance_tuile){
+            if (tuile.getPion()==pion){
+                num_tuile=tuile.getNumero();
+            }
+        }
+        return num_tuile;
     }
     
     public ArrayList<Tuile> getTuilesAdjacentes(Tuile tuile){

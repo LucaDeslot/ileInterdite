@@ -166,7 +166,10 @@ public class Controleur {
                     }//fin while
                 }//fin if
                 Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
-                joueur.setPostition(grille.getTuile(7));
+                if (grille.getNumTuilePion(joueur.getPion())!=36){
+                    joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
+                }
+                
                 getJoueurs().add(joueur);
             }//fin for
             
