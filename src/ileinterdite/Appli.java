@@ -13,7 +13,7 @@ public class Appli {
         // TODO code application logic here
 
         IHMileInterdite ihm = new IHMileInterdite();
-        Controleur test = new Controleur();
+        JeuIleInterdite test = new JeuIleInterdite();
         test.Jeu();
     }
     
