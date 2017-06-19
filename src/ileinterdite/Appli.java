@@ -12,6 +12,7 @@ public class Appli {
     public static void main(String[] args) {
         // TODO code application logic here
 
+        IHMileInterdite ihm = new IHMileInterdite();
         Controleur test = new Controleur();
         test.Jeu();
     }
