@@ -5,6 +5,7 @@
  */
 package ileinterdite;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,11 +29,16 @@ public class IHMileInterdite {
         private JButton Deplacement = new JButton("Deplacement");
         private JButton Recuparation = new JButton("Récuperation");
         
+        //grille
+        
+        private JButton[] cases;
+        
     
     
     public IHMileInterdite() {
         
         windowJeu = new JFrame("Ile Interdite");
+        windowJeu.setLayout(new BorderLayout());
         InitFenetrePrincipale();
         
         
@@ -42,7 +48,7 @@ public class IHMileInterdite {
     public void InitFenetrePrincipale(){
         
         //initialisation commandes
-        commandes = new JPanel(new GridLayout(6, 2));
+        commandes = new JPanel(new GridLayout(2, 6));
         
         for(int i = 0; i<12; i++){
             if (i == 0){
@@ -52,12 +58,19 @@ public class IHMileInterdite {
             } else if (i == 6){
                 commandes.add(Recuparation);
             } else {
-                commandes.add(new JLabel());
+                commandes.add(new JLabel(""));
             }
         }
         
+        cases = new JButton[35];
         
-        windowJeu.add(commandes);
+        for(int i = 0; i<36; i++){
+            if ( 
+        }
+        
+        
+        
+        windowJeu.add(commandes, BorderLayout.NORTH);
         
         
         windowJeu.setSize(1000,1000);
